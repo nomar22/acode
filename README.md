@@ -1,53 +1,34 @@
-# README
+# Avenue Code Test Implementation
 
-This project was developed with the intention to show to the [Avenue Code](https://www.avenuecode.com/) recruiters my capabilities to be part of the team.
+This project is made to apply a test from [Avenue Code](https://www.avenuecode.com) for Java developer role.
 
-It delivers a JAX-RS API to perform CRUD operations on a Product resource using Image as a sub-resource of Product.
-
-It implements the following concepts:
-
-  * [Entity](#entities) - A model domain object defined by its identity.
-  * [Repository](#repositories) - An object that mediates between the entities and the persistence layer.
-  * [Resouce](#resources) - An object receives all requests and comunicate with the business logic layer.
-  * [Service](#services) - An object that mediates the comunication between the resources and the repositories. Contains the business logic.
+It was developped a Restful service using JAX-RS (as demanded) to perform CRUD operations on Products using Image as a sub-resource of Product.
 
 
-## Frameworks, Components and Database
-
-  * To develop this API, was used the [Spring](https://spring.io/), using mainly Spring Boot, and Spring Data to perform the data operations.
-  * To meet the technical criterias, was used the [Jersey](https://jersey.github.io/) Component to allow the JAX-RS, instead of use Spring MVC .
-  * To test the REST requisitions, was used the [Rest Assured](http://rest-assured.io/) framework.
-  * The database chosen was [H2](http://www.h2database.com/html/main.html) Database.
-
-## Operations
-
-### GET
+## Installation
+* Ensure that Java 8 and Maven 3.2 are installed
+* Clone this repo:
+  git clone https://github.com/nomar22/acode.git
 
 
-### POST
+## Usage
+
+### Running The Application
+Navigate to the directory and exexute : <b>mvn spring-boot:run</b>
+Once started you can check the service on : `http://localhost:8080/v1/products`
+
+The port number can be changed by editing the port property on `src/main/resources`
+
+### Convert Swagger spec into HTML doc
+The swagger2markup and asciidoc maven plugins are used to publish API as HTML. To use: `mvn clean test site`
+
+The documentation will be created in `target/generated-docs/html`
 
 
-### PUT
 
-
-### DELETE
-
-## Database access
-
-## Running The Application
-
-To run the application the command used is <b>mvn spring-boot:run</b>
-
-## Problems
-
-  * Running The Tests
-
-    Unfortunatelly, I couldn't get the tests running by maven commands usage.
-    I had problems configuring the Jersey, Rest Assured and Spring together.
-    The problem I had was that while the maven test command was being executed, the tests weren't finding the web context to perform the requisitions in the API.
 
 ## Contacts
 
-* LinkedIn: [https://www.linkedin.com/in/jonathan-de-paula-675595120/](https://www.linkedin.com/in/jonathan-de-paula-675595120/?locale=en_US)
-* Email: [jonathanpaula22@gmail.com](jonathanpaula22@gmail.com)
-* Phone: +55 31 98747-4093
+* LinkedIn: [https://www.linkedin.com/in/rafael-ramon-684a6320](https://www.linkedin.com/in/rafael-ramon-684a6320/?locale=en_US)
+* Email: [nomar22@gmail.com](nomar22@gmail.com)
+* Phone: +55 31 97534-6631
