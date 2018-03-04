@@ -23,12 +23,15 @@ import com.exam.domain.Product;
 import com.exam.dto.Message;
 import com.exam.service.ProductService;
 
+import io.swagger.annotations.Api;
+
 /**
  * Resource to manage the Product entity operations.
  * 
  * @author RafaelRa
  *
  */
+@Api
 @Component
 @Path("/products")
 public class ProductsApi {
