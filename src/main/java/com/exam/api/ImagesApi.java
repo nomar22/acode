@@ -22,11 +22,14 @@ import com.exam.domain.Product;
 import com.exam.dto.Message;
 import com.exam.service.ImageService;
 
+import io.swagger.annotations.Api;
+
 /**
  * Resource to manage the Image entity operations.
  * @author RafaelRa
  *
  */
+@Api
 @Component
 @Path("/images")
 public class ImagesApi {
