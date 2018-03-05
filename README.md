@@ -14,13 +14,13 @@ It was developped a Restful service using JAX-RS (as demanded) to perform CRUD o
 ## Usage
 
 ### Running The Application
-Navigate to the directory and exexute : <b>mvn spring-boot:run</b>
+Navigate to the directory and execute : <b>mvn spring-boot:run</b>
 Once started you can check the service on : `http://localhost:8080/v1/products`
 
-The port number can be changed by editing the port property on `src/main/resources`
+The port number can be changed by editing the port property on `src/main/resources/application.properties`
 
 ### API documentation
-The API documentation is locatted as the main page of project on `http://localhost:8080`
+The API documentation is locatted at the main page of project on `http://localhost:8080`
 
 
 
