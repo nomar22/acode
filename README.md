@@ -2,7 +2,7 @@
 
 This project was made to apply to a role as a Java developer at  [Avenue Code](https://www.avenuecode.com) .
 
-It was developped a Restful service using JAX-RS (as demanded) to perform CRUD operations on Products using Image as a sub-resource of Product.
+It was developped a Restful service using JAX-RS (as demanded) to perform CRUD operations on Products using Image as a sub-resource of it.
 
 
 ## Installation
