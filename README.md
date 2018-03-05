@@ -30,4 +30,5 @@ The API documentation is locatted at the main page of project on `http://localho
 
 * LinkedIn: [https://www.linkedin.com/in/rafael-ramon-684a6320](https://www.linkedin.com/in/rafael-ramon-684a6320/?locale=en_US)
 * Email: [nomar22@gmail.com](nomar22@gmail.com)
+* Github: [https://github.com/nomar22](https://github.com/nomar22)
 * Phone: +55 31 97534-6631
