@@ -19,10 +19,9 @@ Once started you can check the service on : `http://localhost:8080/v1/products`
 
 The port number can be changed by editing the port property on `src/main/resources`
 
-### Convert Swagger spec into HTML doc
-The swagger2markup and asciidoc maven plugins are used to publish API as HTML. To use: `mvn clean test site`
+### API documentation
+The API documentation is locatted as the main page of project on `http://localhost:8080`
 
-The documentation will be created in `target/generated-docs/html`
 
 
 
