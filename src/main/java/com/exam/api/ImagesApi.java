@@ -58,9 +58,6 @@ public class ImagesApi {
 		}
 
 		Set<Image> images = imageService.getAllProductImages(product);
-//		if (images == null || images.isEmpty()) {
-//			return Response.status(Response.Status.NO_CONTENT).entity(Message.NOT_FOUND.getDescription()).build();
-//		}
 
 		return Response.status(Response.Status.OK).entity(images).type(MediaType.APPLICATION_JSON_VALUE).build();
 	}
