@@ -117,7 +117,6 @@ public class ProductService {
 	 * @throws ProductException
 	 */
 	//TODO improve these validations
-	@Transactional
 	private void validateProduct(Product productToSave) throws Exception {
 		if (productToSave.getId() != null) {
 			if (productToSave.getParentProduct() != null) {
@@ -129,7 +128,7 @@ public class ProductService {
 			if (productToSave.getImages() != null && !productToSave.getImages().isEmpty()) {
 				for (Image image : productToSave.getImages()) {
 					image.setProduct(productToSave);
-					imageService.saveImage(image);
+//					imageService.saveImage(image);
 				}
 			}
 
