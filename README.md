@@ -1,6 +1,6 @@
 # Avenue Code Test Implementation
 
-This project is made to apply a test from [Avenue Code](https://www.avenuecode.com) for Java developer role.
+This project was made to apply to a role as a Java developer at  [Avenue Code](https://www.avenuecode.com) .
 
 It was developped a Restful service using JAX-RS (as demanded) to perform CRUD operations on Products using Image as a sub-resource of Product.
 
