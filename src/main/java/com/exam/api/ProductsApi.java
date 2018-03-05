@@ -136,7 +136,7 @@ public class ProductsApi {
 	 */
 	@POST
 	@Path("/child")
-	@ApiOperation(value = "Manage a POST to get all specified relationships of a product")
+	@ApiOperation(value = "Get all child of products")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public Response getProductChilds(@RequestBody Product product) {
@@ -179,7 +179,7 @@ public class ProductsApi {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Put a new Product")
+	@ApiOperation(value = "Update an existing Product")
 	public Response updateProduct(@RequestBody Product product, @PathParam("id") String id) {
 		if (product == null || StringUtils.isEmpty(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();

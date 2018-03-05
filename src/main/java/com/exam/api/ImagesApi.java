@@ -23,6 +23,7 @@ import com.exam.dto.Message;
 import com.exam.service.ImageService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Resource to manage the Image entity operations.
@@ -50,15 +51,16 @@ public class ImagesApi {
 	@Path("/productImages")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Requests to get all Images of a specific Product")
 	public Response getProductImages(@RequestBody Product product) {
 		if (product == null || StringUtils.isEmpty(product.getId())) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
 		}
 
 		Set<Image> images = imageService.getAllProductImages(product);
-		if (images == null || images.isEmpty()) {
-			return Response.status(Response.Status.NO_CONTENT).entity(Message.NOT_FOUND.getDescription()).build();
-		}
+//		if (images == null || images.isEmpty()) {
+//			return Response.status(Response.Status.NO_CONTENT).entity(Message.NOT_FOUND.getDescription()).build();
+//		}
 
 		return Response.status(Response.Status.OK).entity(images).type(MediaType.APPLICATION_JSON_VALUE).build();
 	}
@@ -71,6 +73,7 @@ public class ImagesApi {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Save a new image")
 	public Response saveImage(@RequestBody Image imageToSave) {
 		if (imageToSave == null) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription())
@@ -95,6 +98,7 @@ public class ImagesApi {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Update an existing image")
 	public Response updateImage(@RequestBody Image imageToUpdate, @PathParam("id") String id) {
 		if (imageToUpdate == null || StringUtils.isEmpty(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
@@ -115,7 +119,7 @@ public class ImagesApi {
 	 */
 	@DELETE
 	@Path("/{id}")
-	//TODO tratamento excecao.
+	@ApiOperation(value = "Delete an existing image")
 	public Response deleteImage(@PathParam("id") String id) {
 			imageService.deleteImage(Integer.parseInt(id));
 			return Response.status(Response.Status.OK).entity(Message.SUCCESS.getDescription())

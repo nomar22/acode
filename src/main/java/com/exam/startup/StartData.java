@@ -25,7 +25,7 @@ public class StartData implements InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 
 		Product p1 = new Product();
-		p1.setName("Product 1");
+		p1.setName("Product #1");
 
 		Image i1 = new Image();
 		i1.setProduct(p1);
@@ -34,6 +34,7 @@ public class StartData implements InitializingBean {
 
 		Set<Image> ImageSet = new HashSet<>();
 		ImageSet.add(i1);
+		p1.setImages(ImageSet);
 
 		p1 = productService.saveProduct(p1);
 
@@ -41,10 +42,20 @@ public class StartData implements InitializingBean {
 		p2.setName("Product #2");
 		p2.setParentProduct(p1);
 
+		p2 = productService.saveProduct(p2);
+
 		Image i2 = new Image();
 		i2.setProduct(p2);
 
+		ImageSet = new HashSet<>();
+		ImageSet.add(i2);
+		p2.setImages(ImageSet);
+
 		p2 = productService.saveProduct(p2);
+
+		p1.setParentProduct(p2);
+
+		p1 = productService.saveProduct(p1);
 	}
 
 }
