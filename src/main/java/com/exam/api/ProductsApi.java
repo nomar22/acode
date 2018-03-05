@@ -24,6 +24,7 @@ import com.exam.dto.Message;
 import com.exam.service.ProductService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Resource to manage the Product entity operations.
@@ -49,6 +50,7 @@ public class ProductsApi {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get a product with its relationships")
 	public Response getProductWithFetch(@PathParam("id") String id) {
 		if (StringUtils.isEmpty(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
@@ -72,6 +74,7 @@ public class ProductsApi {
 	 */
 	@GET
 	@Path("/nochild/{id}")
+	@ApiOperation(value = "Get product without its relationships")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public Response getProductExcludingRelationships(@PathParam("id") String id) {
 		if (StringUtils.isEmpty(id)) {
@@ -94,6 +97,7 @@ public class ProductsApi {
 	 * @return
 	 */
 	@GET
+	@ApiOperation(value = "Method to manage GET request to get all products in the database with all its relationships")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public Response getAllProducts() {
 		Set<Product> products = productService.getAllWithFetch();
@@ -112,6 +116,7 @@ public class ProductsApi {
 	 */
 	@GET
 	@Path("/nochild")
+	@ApiOperation(value = "Method to manage GET request to get all products in the database without its relationships")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public Response getAllProductsNoChilds() {
 		Set<Product> products = productService.getAllExcludingRelationships();
@@ -131,6 +136,7 @@ public class ProductsApi {
 	 */
 	@POST
 	@Path("/child")
+	@ApiOperation(value = "Manage a POST to get all specified relationships of a product")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public Response getProductChilds(@RequestBody Product product) {
@@ -152,6 +158,7 @@ public class ProductsApi {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Persist a Product validating it")
 	public Response saveProduct(@RequestBody Product product) {
 		Product productToSave = productService.saveProduct(product);
 		if (productToSave == null || StringUtils.isEmpty(productToSave.getId())) {
@@ -172,6 +179,7 @@ public class ProductsApi {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Put a new Product")
 	public Response updateProduct(@RequestBody Product product, @PathParam("id") String id) {
 		if (product == null || StringUtils.isEmpty(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
