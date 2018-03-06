@@ -6,8 +6,10 @@ import static org.hamcrest.Matchers.equalTo;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.exam.domain.Image;
 import com.exam.domain.Product;
@@ -22,6 +24,9 @@ import com.jayway.restassured.http.ContentType;
 //import com.exam.domain.Product;
 //import com.jayway.restassured.http.ContentType;
 //
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductsApiTest extends FunctionalTest {
 
 	@Override

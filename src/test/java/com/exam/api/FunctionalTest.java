@@ -7,14 +7,13 @@ import com.jayway.restassured.RestAssured;
 
 public abstract class FunctionalTest {
 
+	@LocalServerPort
+	private int port;
+
 	@Before
 	public void setup() {
-		String port = System.getProperty("server.port");
-		if (port == null) {
-			RestAssured.port = Integer.valueOf(8080);
-		} else {
-			RestAssured.port = Integer.valueOf(port);
-		}
+
+		RestAssured.port = port;
 
 		String basePath = System.getProperty("server.base");
 		if (basePath == null) {
