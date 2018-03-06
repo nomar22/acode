@@ -1,30 +1,24 @@
-//package com.exam.api;
+////package com.exam.api;
+////
+////import static junit.framework.TestCase.assertNotNull;
+////import static org.junit.Assert.assertEquals;
+////
+////import javax.management.Notification;
+////import javax.ws.rs.client.Entity;
+////import javax.ws.rs.core.Application;
+////import javax.ws.rs.core.MediaType;
+////import javax.ws.rs.core.Response;
+////
+////import org.glassfish.jersey.server.ResourceConfig;
+////import org.glassfish.jersey.test.JerseyTest;
+////import org.glassfish.jersey.test.TestProperties;
+////import org.junit.Test;
+////
+////import com.exam.domain.Image;
+////import com.exam.domain.Product;
+////
+//public class ImageApiTest extends FunctionalTest {
 //
-//import static junit.framework.TestCase.assertNotNull;
-//import static org.junit.Assert.assertEquals;
-//
-//import javax.management.Notification;
-//import javax.ws.rs.client.Entity;
-//import javax.ws.rs.core.Application;
-//import javax.ws.rs.core.MediaType;
-//import javax.ws.rs.core.Response;
-//
-//import org.glassfish.jersey.server.ResourceConfig;
-//import org.glassfish.jersey.test.JerseyTest;
-//import org.glassfish.jersey.test.TestProperties;
-//import org.junit.Test;
-//
-//import com.exam.domain.Image;
-//import com.exam.domain.Product;
-//
-//public class ImageApiTest extends JerseyTest {
-//
-//	@Override
-//	public Application configure() {
-//		enable(TestProperties.LOG_TRAFFIC);
-//		enable(TestProperties.DUMP_ENTITY);
-//		return new ResourceConfig(ImagesApi.class);
-//	}
 //
 //	@Test
 //	public void testFetchAll() {

@@ -31,6 +31,8 @@ public class Image implements Serializable {
 	@GeneratedValue
 	private Integer id;
 
+	private String description;
+
 	@ManyToOne(optional = false)
 	private Product product;
 
@@ -38,9 +40,14 @@ public class Image implements Serializable {
 		super();
 	}
 
-	public Image(int id, Product product) {
+	public Image(int id, Product product, String description) {
 		this.id = id;
 		this.product = product;
+		this.description = description;
+	}
+
+	public Image(String description) {
+		this.description = description;
 	}
 
 	public Integer getId() {
@@ -59,10 +66,19 @@ public class Image implements Serializable {
 		this.product = product;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((product == null) ? 0 : product.hashCode());
 		return result;
@@ -77,6 +93,11 @@ public class Image implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Image other = (Image) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;

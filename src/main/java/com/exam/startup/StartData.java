@@ -1,8 +1,5 @@
 package com.exam.startup;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,9 +29,7 @@ public class StartData implements InitializingBean {
 
 		p1 = productService.saveProduct(p1);
 
-		Set<Image> ImageSet = new HashSet<>();
-		ImageSet.add(i1);
-		p1.setImages(ImageSet);
+		p1.addImages(new Image("Front"), new Image("Back"));
 
 		p1 = productService.saveProduct(p1);
 
@@ -44,12 +39,7 @@ public class StartData implements InitializingBean {
 
 		p2 = productService.saveProduct(p2);
 
-		Image i2 = new Image();
-		i2.setProduct(p2);
-
-		ImageSet = new HashSet<>();
-		ImageSet.add(i2);
-		p2.setImages(ImageSet);
+		p2.addImages(new Image("Down"), new Image("Up"), new Image("Stair"));
 
 		p2 = productService.saveProduct(p2);
 

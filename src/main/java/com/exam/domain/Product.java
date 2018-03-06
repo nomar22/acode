@@ -1,6 +1,7 @@
 package com.exam.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -50,6 +51,36 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
+	public Product(ProductBuilder builder) {
+		this();
+		this.id = builder.getId();
+		this.name = builder.getName();
+		this.images = builder.getImages();
+		this.parent = builder.getParent();
+	}
+
+	public void addImages(Image... object) {
+		if (this.images == null) {
+			this.images = new HashSet<>();
+		}
+		for (Image img : object) {
+			img.setProduct(this);
+			this.images.add(img);
+		}
+	}
+
+	public void removeImage(Image image) {
+		if (images != null) {
+			images.remove(image);
+		}
+	}
+
+	public void removeAllImages() {
+		if (images != null) {
+			images.clear();
+		}
+	}
+
 	public Product() {
 		super();
 	}
@@ -79,11 +110,7 @@ public class Product implements Serializable {
 	}
 
 	public Set<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(Set<Image> imageList) {
-		this.images = imageList;
+		return images != null ? new HashSet<Image>(images) : null;
 	}
 
 	@Override
@@ -109,6 +136,58 @@ public class Product implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public static class ProductBuilder {
+		private Integer id;
+		private String name;
+
+		private Set<Image> images;
+
+		private Product parent;
+
+		public ProductBuilder(Integer id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+
+		public ProductBuilder setImages(Set<Image> images) {
+			this.images = images;
+			return this;
+		}
+
+		public ProductBuilder setParent(Product parent) {
+			this.parent = parent;
+			return this;
+		}
+
+		public Integer getId() {
+			return id;
+		}
+
+		public void setId(Integer id) {
+			this.id = id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Set<Image> getImages() {
+			return images;
+		}
+
+		public Product getParent() {
+			return parent;
+		}
+
+		public Product build() {
+			return new Product(this);
+		}
 	}
 
 }

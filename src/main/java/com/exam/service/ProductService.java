@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.exam.domain.Image;
@@ -113,22 +112,22 @@ public class ProductService {
 	 * Method executed before persist a Product to perform some validations.
 	 * 
 	 * @param productToSave
-	 * @throws Exception 
+	 * @throws Exception
 	 * @throws ProductException
 	 */
-	//TODO improve these validations
+	// TODO improve these validations
 	private void validateProduct(Product productToSave) throws Exception {
 		if (productToSave.getId() != null) {
 			if (productToSave.getParentProduct() != null) {
 				if (productToSave.equals(productToSave.getParentProduct())) {
-					throw new Exception ("A product can't be it's parent");
+					throw new Exception("A product can't be it's parent");
 				}
 			}
 
 			if (productToSave.getImages() != null && !productToSave.getImages().isEmpty()) {
 				for (Image image : productToSave.getImages()) {
 					image.setProduct(productToSave);
-//					imageService.saveImage(image);
+					// imageService.saveImage(image);
 				}
 			}
 
@@ -137,7 +136,7 @@ public class ProductService {
 
 		if (productToSave.getImages() != null && !productToSave.getImages().isEmpty()) {
 			Set<Image> imageSet = new HashSet<>(productToSave.getImages());
-			productToSave.setImages(null);
+			productToSave.removeAllImages();
 			productToSave = productRepository.save(productToSave);
 
 			for (Image image : imageSet) {
@@ -152,25 +151,32 @@ public class ProductService {
 	 * Method to update a specific Product.
 	 * 
 	 * @param id
-	 * @param productToUpdate
+	 * @param updaterProduct
 	 * @return
 	 */
-	//TODO- Copy properties
-	public Product updateProduct(Integer id, Product productToUpdate) {
+	// TODO- Copy properties
+	public Product updateProduct(Integer id, Product updaterProduct) {
 		Product foundProduct = getByIdWithFetch(id);
 		if (foundProduct != null) {
-			if (!StringUtils.isEmpty(productToUpdate.getName())) {
-				foundProduct.setName(productToUpdate.getName());
+			if (!StringUtils.isEmpty(updaterProduct.getName())) {
+				foundProduct.setName(updaterProduct.getName());
 			}
-			if (productToUpdate.getImages() != null && !productToUpdate.getImages().isEmpty()) {
-				foundProduct.setImages(productToUpdate.getImages());
+			if (updaterProduct.getImages() != null && !updaterProduct.getImages().isEmpty()) {
+				updateImages(foundProduct,updaterProduct);
 			}
-			if (productToUpdate.getParentProduct() != null) {
-				foundProduct.setParentProduct(productToUpdate.getParentProduct());
+			if (updaterProduct.getParentProduct() != null) {
+				foundProduct.setParentProduct(updaterProduct.getParentProduct());
 			}
 			return saveProduct(foundProduct);
 		}
 		return null;
+	}
+
+	private void updateImages(Product foundProduct, Product productToUpdate) {
+		foundProduct.removeAllImages();
+		for (Image img: productToUpdate.getImages()) {
+			foundProduct.addImages(img);
+		}
 	}
 
 	/**
