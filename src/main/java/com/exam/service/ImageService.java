@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exam.domain.Image;
-import com.exam.domain.Product;
 import com.exam.repository.ImageRepository;
 
 /**
@@ -45,8 +44,8 @@ public class ImageService {
 	 * @param product
 	 * @return
 	 */
-	public Set<Image> getAllProductImages(Product product) {
-		return imageRepository.findByParentProduct(product);
+	public Set<Image> getAllProductImages(Integer id) {
+		return imageRepository.findByParentProductId(id);
 	}
 
 	/**

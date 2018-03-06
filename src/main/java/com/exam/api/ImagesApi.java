@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -18,7 +19,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.exam.domain.Image;
-import com.exam.domain.Product;
 import com.exam.dto.Message;
 import com.exam.service.ImageService;
 
@@ -47,17 +47,16 @@ public class ImagesApi {
 	 * @param product
 	 * @return
 	 */
-	@POST
-	@Path("/productImages")
-	@Consumes(MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/productImages/{id}")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Requests to get all Images of a specific Product")
-	public Response getProductImages(@RequestBody Product product) {
-		if (product == null || StringUtils.isEmpty(product.getId())) {
+	public Response getProductImages(@PathParam("id") String id) {
+		if ("".equals(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
 		}
 
-		Set<Image> images = imageService.getAllProductImages(product);
+		Set<Image> images = imageService.getAllProductImages(Integer.valueOf(id));
 
 		return Response.status(Response.Status.OK).entity(images).type(MediaType.APPLICATION_JSON_VALUE).build();
 	}
