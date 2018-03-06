@@ -2,12 +2,11 @@ package com.exam.api;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.containsString;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.exam.domain.Image;
@@ -24,6 +23,25 @@ import com.jayway.restassured.http.ContentType;
 //import com.jayway.restassured.http.ContentType;
 //
 public class ProductsApiTest extends FunctionalTest {
+
+	@Override
+	protected String configureSubDomain() {
+		return "products";
+	}
+
+	
+	@Test
+	public void testGetProductExcludingRelationships() {
+		given().when().get("nochild/{id}", 1).then().statusCode(200);
+	}
+
+	@Ignore
+	@Test
+	public void testGetAllProducts() {
+//		given().when().get().then().body().statusCode(200);
+	}
+
+	@Ignore
 	@Test
 	public void testSaveProduct() {
 
@@ -32,9 +50,9 @@ public class ProductsApiTest extends FunctionalTest {
 		images.add(new Image());
 		images.add(new Image());
 
-		Product product = new Product.ProductBuilder(null, "Product 1").setImages(images).build();
+		Product product = new Product.ProductBuilder(null, "Product 5").setImages(images).build();
 		//
-		given().contentType(ContentType.JSON).body(product).when().post().then().body("name", equalTo("Product 1"))
+		given().contentType(ContentType.JSON).body(product).when().post().then().body("name", equalTo("Product 5"))
 				.statusCode(200);
 		//
 		// product = ProductGenerator.createNewProduct("Product #4", "Product #4
@@ -47,5 +65,6 @@ public class ProductsApiTest extends FunctionalTest {
 		// .body("name", equalTo("Product #4")).statusCode(200);
 	}
 	//
+
 }
 ////
