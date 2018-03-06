@@ -13,7 +13,7 @@ It was developped a Restful service using JAX-RS (as demanded) to perform CRUD o
 
 ## Usage
 
-### Running The Application
+### Run the application
 Navigate to the directory and execute : <b>mvn spring-boot:run</b>
 Once started you can check the service on : `http://localhost:8080/v1/products`
 
