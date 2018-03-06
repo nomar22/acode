@@ -34,6 +34,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 	@Query(value = "select product FROM Product product "
 			+ "LEFT JOIN FETCH product.images images LEFT JOIN FETCH product.parent parent "
-			+ "LEFT JOIN FETCH parent.images " + "WHERE parent = :product")
-	Set<Product> findByParentProduct(@Param("product") Product product);
+			+ "LEFT JOIN FETCH parent.images " + "WHERE parent.id = :id")
+	Set<Product> findByParentProductId(@Param("id") Integer id);
 }

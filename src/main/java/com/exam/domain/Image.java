@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Image entity class.
+ * 
  * @author RafaelRa
  *
  */
@@ -29,9 +30,18 @@ public class Image implements Serializable {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
+
 	@ManyToOne(optional = false)
 	private Product product;
+
+	public Image() {
+		super();
+	}
+
+	public Image(int id, Product product) {
+		this.id = id;
+		this.product = product;
+	}
 
 	public Integer getId() {
 		return id;

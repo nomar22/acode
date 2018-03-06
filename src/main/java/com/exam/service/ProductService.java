@@ -82,8 +82,8 @@ public class ProductService {
 	 * @param product
 	 * @return
 	 */
-	public Set<Product> getAllProductChild(Product product) {
-		return productRepository.findByParentProduct(product);
+	public Set<Product> getAllProductChild(Integer id) {
+		return productRepository.findByParentProductId(id);
 	}
 
 	/**

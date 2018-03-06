@@ -134,17 +134,16 @@ public class ProductsApi {
 	 * @param product
 	 * @return
 	 */
-	@POST
-	@Path("/child")
+	@GET
+	@Path("/child/{id}")
 	@ApiOperation(value = "Get all child of products")
-	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
-	public Response getProductChilds(@RequestBody Product product) {
-		if (product == null || StringUtils.isEmpty(product.getId())) {
+	public Response getProductChilds(@PathParam("id") String id) {
+		if ("".equals(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
 		}
 
-		Set<Product> products = productService.getAllProductChild(product);
+		Set<Product> products = productService.getAllProductChild(Integer.valueOf(id));
 
 		return Response.status(Response.Status.OK).entity(products).type(MediaType.APPLICATION_JSON_VALUE).build();
 	}
