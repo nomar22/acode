@@ -34,14 +34,19 @@ public class ProductsApiTest extends FunctionalTest {
 	public void testGetProductExcludingRelationships() {
 		given().when().get("nochild/{id}", 1).then().statusCode(200);
 	}
-
-	@Ignore
+	
 	@Test
 	public void testGetAllProducts() {
-//		given().when().get().then().body().statusCode(200);
+		given().when().get().then().statusCode(200);
+	}
+	
+	@Test
+	public void testGetProductWithFetch() {
+		given().when().get("{id}", 1).then().body("name", equalTo("Computer")).statusCode(200);
 	}
 
-	@Ignore
+
+
 	@Test
 	public void testSaveProduct() {
 
