@@ -72,12 +72,15 @@ public class ImageService {
 	 * @param imageToUpdate
 	 * @return
 	 */
-	//TODO an update copying properties
+	// TODO an update copying properties
 	public Image updateImage(Integer id, Image imageToUpdate) {
 		Image foundImage = getImage(id);
 		if (foundImage != null) {
 			if (imageToUpdate.getProduct() != null) {
 				foundImage.setProduct(imageToUpdate.getProduct());
+			}
+			if (imageToUpdate.getDescription() != null) {
+				foundImage.setDescription(imageToUpdate.getDescription());
 			}
 			return saveImage(foundImage);
 		}

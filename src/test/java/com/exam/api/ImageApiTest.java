@@ -1,66 +1,50 @@
-////package com.exam.api;
+package com.exam.api;
+
+import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+import javax.ws.rs.core.Response;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.exam.domain.Image;
+import com.jayway.restassured.http.ContentType;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class ImageApiTest extends FunctionalTest {
+
+	@Override
+	protected String configureSubDomain() {
+		return "images";
+	}
+
+	@Test
+	public void testSave() {
+		Image image = new Image(null, null, "Window");
+
+		given().contentType(ContentType.JSON).body(image).when().post().then().statusCode(Response.Status.CREATED.getStatusCode());
+	}
+
+	@Test
+	public void testUpdate() {
+		Image image = new Image(1, null, "Smartphone");
+		given().contentType(ContentType.JSON).body(image).when().put("{id}", image.getId()).then()
+				.body("description", equalTo("Smartphone")).statusCode(Response.Status.OK.getStatusCode());
+	}
+
+	@Test
+	public void testDeleteImage() {
+		given().when().delete("{id}", 1).then().statusCode(Response.Status.OK.getStatusCode());
+	}
+
+	@Test
+	public void testGetProductImages() {
+		given().when().get("productImages/{id}", 1).then().statusCode(Response.Status.OK.getStatusCode());
+	}
+
+}
 ////
-////import static junit.framework.TestCase.assertNotNull;
-////import static org.junit.Assert.assertEquals;
-////
-////import javax.management.Notification;
-////import javax.ws.rs.client.Entity;
-////import javax.ws.rs.core.Application;
-////import javax.ws.rs.core.MediaType;
-////import javax.ws.rs.core.Response;
-////
-////import org.glassfish.jersey.server.ResourceConfig;
-////import org.glassfish.jersey.test.JerseyTest;
-////import org.glassfish.jersey.test.TestProperties;
-////import org.junit.Test;
-////
-////import com.exam.domain.Image;
-////import com.exam.domain.Product;
-////
-//public class ImageApiTest extends FunctionalTest {
-//
-//
-//	@Test
-//	public void testFetchAll() {
-//		Response output = target("/images").request().get();
-//		assertEquals("should return status 200", 200, output.getStatus());
-//		assertNotNull("Should return list", output.getEntity());
-//	}
-//
-//	@Test
-//	public void testFetchBy() {
-//		Response output = target("/images/1").request().get();
-//		assertEquals("Should return status 200", 200, output.getStatus());
-//		assertNotNull("Should return notification", output.getEntity());
-//	}
-//
-//	// @Test
-//	// public void testFetchByFail_DoesNotHaveDigit(){
-//	// Response output = target("/images/no-id-digit").request().get();
-//	// assertEquals("Should return status 404", 404, output.getStatus());
-//	// }
-//
-//	@Test
-//	public void testCreate() {
-//		Image notification = new Image(1, new Product());
-//		Response output = target("/images").request().post(Entity.entity(notification, MediaType.APPLICATION_JSON));
-//
-//		assertEquals("Should return status 200", 200, output.getStatus());
-//		assertNotNull("Should return notification", output.getEntity());
-//	}
-//
-//	@Test
-//	public void testUpdate() {
-//		Image notification = new Image(1, new Product());
-//		Response output = target("/images").request()
-//				.put(Entity.entity(notification, MediaType.APPLICATION_JSON));
-//		assertEquals("Should return status 204", 204, output.getStatus());
-//	}
-//
-//	@Test
-//	public void testDelete() {
-//		Response output = target("/images/1").request().delete();
-//		assertEquals("Should return status 204", 204, output.getStatus());
-//	}
-//
-//}

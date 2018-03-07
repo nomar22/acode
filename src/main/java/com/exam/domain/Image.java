@@ -33,14 +33,14 @@ public class Image implements Serializable {
 
 	private String description;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	private Product product;
 
 	public Image() {
 		super();
 	}
 
-	public Image(int id, Product product, String description) {
+	public Image(Integer id, Product product, String description) {
 		this.id = id;
 		this.product = product;
 		this.description = description;

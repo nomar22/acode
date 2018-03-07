@@ -70,7 +70,7 @@ public class ImagesApi {
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Save a new image")
-	public Response saveImage(@RequestBody Image imageToSave) {
+	public Response save(@RequestBody Image imageToSave) {
 		if (imageToSave == null) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription())
 					.build();
@@ -95,7 +95,7 @@ public class ImagesApi {
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Update an existing image")
-	public Response updateImage(@RequestBody Image imageToUpdate, @PathParam("id") String id) {
+	public Response update(@RequestBody Image imageToUpdate, @PathParam("id") String id) {
 		if (imageToUpdate == null || StringUtils.isEmpty(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
 		}
@@ -116,7 +116,7 @@ public class ImagesApi {
 	@DELETE
 	@Path("/{id}")
 	@ApiOperation(value = "Delete an existing image")
-	public Response deleteImage(@PathParam("id") String id) {
+	public Response delete(@PathParam("id") String id) {
 			imageService.deleteImage(Integer.parseInt(id));
 			return Response.status(Response.Status.OK).entity(Message.SUCCESS.getDescription())
 					.type(MediaType.APPLICATION_JSON_VALUE).build();

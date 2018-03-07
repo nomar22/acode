@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.equalTo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.ws.rs.core.Response;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,26 +36,23 @@ public class ProductsApiTest extends FunctionalTest {
 		return "products";
 	}
 
-	
 	@Test
 	public void testGetProductExcludingRelationships() {
-		given().when().get("nochild/{id}", 1).then().statusCode(200);
+		given().when().get("nochild/{id}", 1).then().statusCode(Response.Status.OK.getStatusCode());
 	}
-	
+
 	@Test
 	public void testGetAllProducts() {
-		given().when().get().then().statusCode(200);
+		given().when().get().then().statusCode(Response.Status.OK.getStatusCode());
 	}
-	
+
 	@Test
 	public void testGetProductWithFetch() {
-		given().when().get("{id}", 1).then().body("name", equalTo("Computer")).statusCode(200);
+		given().when().get("{id}", 1).then().body("name", equalTo("Computer")).statusCode(Response.Status.OK.getStatusCode());
 	}
 
-
-
 	@Test
-	public void testSaveProduct() {
+	public void testSave() {
 
 		Set<Image> images = new HashSet<>();
 		images.add(new Image());
@@ -63,17 +62,27 @@ public class ProductsApiTest extends FunctionalTest {
 		Product product = new Product.ProductBuilder(null, "Product 5").setImages(images).build();
 		//
 		given().contentType(ContentType.JSON).body(product).when().post().then().body("name", equalTo("Product 5"))
-				.statusCode(200);
-		//
-		// product = ProductGenerator.createNewProduct("Product #4", "Product #4
-		// description - Child of Product #3",
-		// ProductGenerator.createNewProduct(3));
-		// product = ImageGenerator.createImageAssociateProduct(product, "Type 5");
-		//
-		// given().queryParam("parentId",
-		// 1).contentType(ContentType.JSON).body(product).when().post().then()
-		// .body("name", equalTo("Product #4")).statusCode(200);
+				.statusCode(Response.Status.OK.getStatusCode());
 	}
+	
+	@Test
+	public void testUpdate() {
+		Product product = new Product.ProductBuilder(1, "Black Computer").build();
+
+		given().contentType(ContentType.JSON).body(product).when().put("{id}", product.getId().toString()).then()
+				.body("name", equalTo("Black Computer")).statusCode(Response.Status.OK.getStatusCode());
+	}
+	
+	@Test
+	public void testDelete() {
+		given().when().delete("{id}", 1).then().statusCode(Response.Status.OK.getStatusCode());
+	}
+	@Test
+	public void testDeleteFail() {
+		given().when().delete("{id}", 2).then().statusCode(403);
+	}
+	
+	
 	//
 
 }

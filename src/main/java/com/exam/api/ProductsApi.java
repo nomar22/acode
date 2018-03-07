@@ -158,7 +158,7 @@ public class ProductsApi {
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Persist a Product validating it")
-	public Response saveProduct(@RequestBody Product product) {
+	public Response save(@RequestBody Product product) {
 		Product productToSave = productService.saveProduct(product);
 		if (productToSave == null || StringUtils.isEmpty(productToSave.getId())) {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
@@ -201,19 +201,20 @@ public class ProductsApi {
 	 */
 	@DELETE
 	@Path("/{id}")
-	public Response deleteProduct(@PathParam("id") String id) {
+	public Response delete(@PathParam("id") String id) {
 		if (StringUtils.isEmpty(id)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
 		}
 
 		try {
 			productService.deleteProduct(Integer.parseInt(id));
-			return Response.status(Response.Status.OK).entity(Message.SUCCESS.getDescription()).type(MediaType.APPLICATION_JSON_VALUE)
-					.build();
+			return Response.status(Response.Status.OK).entity(Message.SUCCESS.getDescription())
+					.type(MediaType.APPLICATION_JSON_VALUE).build();
 		} catch (DataIntegrityViolationException ex) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Message.ENTITY_INTEGRITY.getDescription()).build();
+			return Response.status(Response.Status.FORBIDDEN).entity(Message.ENTITY_INTEGRITY.getDescription()).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Message.INTERNAL_SERVER_ERROR.getDescription()).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(Message.INTERNAL_SERVER_ERROR.getDescription()).build();
 		}
 	}
 
