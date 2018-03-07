@@ -15,11 +15,14 @@ It was developped a Restful service using JAX-RS (as demanded) to perform CRUD o
 
 ### Run the application
 Navigate to the directory and execute : <b>mvn spring-boot:run</b>
-Once started you can check the service on : `http://localhost:8080/v1/products`
+Once started you can check the service on : `http://localhost:8080/v1/products` and `http://localhost:8080/v1/images`
 
 The port number can be changed by editing the port property on `src/main/resources/application.properties`
 
-### API documentation
+## Test application
+Navigate to the directory and execute : mvn test
+
+## API documentation
 The API documentation is locatted at the main page of project on `http://localhost:8080`
 
 
