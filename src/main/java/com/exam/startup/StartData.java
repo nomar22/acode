@@ -1,9 +1,11 @@
 package com.exam.startup;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.exam.assembler.ProductMapper;
 import com.exam.domain.Image;
 import com.exam.domain.Product;
 import com.exam.service.ProductService;
