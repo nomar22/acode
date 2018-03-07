@@ -23,8 +23,43 @@ The port number can be changed by editing the port property on `src/main/resourc
 Navigate to the directory and execute : mvn test
 
 ## API documentation
-The API documentation is locatted at the main page of project on `http://localhost:8080`
+Once started the application the API documentation is locatted at the main page of project on `http://localhost:8080`
 
+####POST
+/images
+Save a new image
+####GET
+/images/productImages/{id}
+Requests to get all Images of a specific Product
+####PUT
+/images/{id}
+Update an existing image
+####DELETE
+/images/{id}
+Delete an existing image
+####GET
+/products
+Method to manage GET request to get all products in the database with all its relationships
+####POST
+/products
+Persist a Product validating it
+####GET
+/products/child/{id}
+Get all child of products
+####GET
+/products/nochild
+Method to manage GET request to get all products in the database without its relationships
+####GET
+/products/nochild/{id}
+Get product without its relationships
+####GET
+/products/{id}
+Get a product with its relationships
+####PUT
+/products/{id}
+Update an existing Product
+####DELETE
+/products/{id}
 
 
 
