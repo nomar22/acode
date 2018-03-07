@@ -25,40 +25,40 @@ Navigate to the directory and execute : mvn test
 ## API documentation
 Once started the application the API documentation is locatted at the main page of project on `http://localhost:8080`
 
-####POST
+#### POST
 /images
 Save a new image
-####GET
+#### GET
 /images/productImages/{id}
 Requests to get all Images of a specific Product
-####PUT
+#### PUT
 /images/{id}
 Update an existing image
-####DELETE
+#### DELETE
 /images/{id}
 Delete an existing image
-####GET
+#### GET
 /products
 Method to manage GET request to get all products in the database with all its relationships
-####POST
+#### POST
 /products
 Persist a Product validating it
-####GET
+#### GET
 /products/child/{id}
 Get all child of products
-####GET
+#### GET
 /products/nochild
 Method to manage GET request to get all products in the database without its relationships
-####GET
+#### GET
 /products/nochild/{id}
 Get product without its relationships
-####GET
+#### GET
 /products/{id}
 Get a product with its relationships
-####PUT
+#### PUT
 /products/{id}
 Update an existing Product
-####DELETE
+#### DELETE
 /products/{id}
 
 
