@@ -1,5 +1,6 @@
 package com.exam.assembler;
 
+import org.hibernate.LazyInitializationException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +17,21 @@ public class ProductAssembler extends JaxRsResourceAssemblerSuport<Product, Prod
 
 	@Override
 	public ProductDto toResource(Product entity) {
-		ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
-		ProductDto product = createResourceWithId(entity.getId(), entity);
-		ProductDto result = mapper.produtEntityToProduct(entity);
-		result.add(product.getLinks());
-		ProductDto parent = toResource(entity.getParentProduct());
-		result.setParent(parent);
+		if (entity == null) {
+			return null;
+		}
+		ProductDto result = null;
+		try {
+			ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
+			ProductDto product = createResourceWithId(entity.getId(), entity);
+			result = mapper.produtEntityToProduct(entity);
+			result.add(product.getLinks());
+			ProductDto parent = toResource(entity.getParent());
+			result.setParent(parent);
+		} catch (LazyInitializationException ex) {
+			result = new ProductDto();
+			// will return null, can't load at its level
+		}
 
 		return result;
 	}

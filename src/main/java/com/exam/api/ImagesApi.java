@@ -1,5 +1,6 @@
 package com.exam.api;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
@@ -60,9 +61,46 @@ public class ImagesApi {
 
 		Set<Image> images = imageService.getAllProductImages(Integer.valueOf(id));
 
-		// return Response.status(Response.Status.OK).entity(images)
-		return Response.status(Response.Status.OK).entity(imageAssembler.toResources(images))
-				.type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(imageAssembler.toResources(images)).build();
+	}
+
+	/**
+	 * Method to manage GET request to get all images in the database with all its
+	 * 
+	 * @return
+	 */
+	@GET
+	@ApiOperation(value = "Method to manage GET request to get all images in the database")
+	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	public Response getAllImages() {
+		List<Image> images = imageService.findAll();
+		if (images == null || images.isEmpty()) {
+			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
+		}
+
+		return Response.ok(imageAssembler.toResources(images)).build();
+	}
+
+	/**
+	 * Method to manage GET request to get all images in the database with all its
+	 * 
+	 * @return
+	 */
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get a image with its relationships")
+	public Response getImage(@PathParam("id") String id) {
+		if ("".equals(id)) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(Message.BAD_REQUEST.getDescription()).build();
+		}
+
+		Image image = imageService.findById(Integer.valueOf(id));
+		if (image == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
+		}
+
+		return Response.ok(imageAssembler.toResource(image)).build();
 	}
 
 	/**
@@ -85,7 +123,8 @@ public class ImagesApi {
 					.entity(Message.INTERNAL_SERVER_ERROR.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.CREATED).entity(image).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.status(Response.Status.CREATED).entity(imageAssembler.toResource(image))
+				.type(MediaType.APPLICATION_JSON_VALUE).build();
 	}
 
 	/**
@@ -110,7 +149,7 @@ public class ImagesApi {
 					.entity(Message.INTERNAL_SERVER_ERROR.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(image).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(imageAssembler.toResource(image)).build();
 	}
 
 	/**
@@ -124,7 +163,6 @@ public class ImagesApi {
 	@ApiOperation(value = "Delete an existing image")
 	public Response delete(@PathParam("id") String id) {
 		imageService.deleteImage(Integer.parseInt(id));
-		return Response.status(Response.Status.OK).entity(Message.SUCCESS.getDescription())
-				.type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok().build();
 	}
 }

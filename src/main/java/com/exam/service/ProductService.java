@@ -44,7 +44,7 @@ public class ProductService {
 	 * @return
 	 */
 	public Product getByIdWithFetch(Integer id) {
-		return productRepository.findProductWithFetch(id);
+		return productRepository.findById(id);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class ProductService {
 	 * @return
 	 */
 	public Set<Product> getAllWithFetch() {
-		return productRepository.findAllWithFetch();
+		return productRepository.findAll();
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class ProductService {
 	 * @return
 	 */
 	public Set<Product> getAllProductChild(Integer id) {
-		return productRepository.findByParentProductId(id);
+		return productRepository.findByParentId(id);
 	}
 
 	/**
@@ -118,8 +118,8 @@ public class ProductService {
 	// TODO improve these validations
 	private void validateProduct(Product productToSave) throws Exception {
 		if (productToSave.getId() != null) {
-			if (productToSave.getParentProduct() != null) {
-				if (productToSave.equals(productToSave.getParentProduct())) {
+			if (productToSave.getParent() != null) {
+				if (productToSave.equals(productToSave.getParent())) {
 					throw new Exception("A product can't be it's parent");
 				}
 			}
@@ -127,7 +127,6 @@ public class ProductService {
 			if (productToSave.getImages() != null && !productToSave.getImages().isEmpty()) {
 				for (Image image : productToSave.getImages()) {
 					image.setProduct(productToSave);
-					// imageService.saveImage(image);
 				}
 			}
 
@@ -162,10 +161,10 @@ public class ProductService {
 				foundProduct.setName(updaterProduct.getName());
 			}
 			if (updaterProduct.getImages() != null && !updaterProduct.getImages().isEmpty()) {
-				updateImages(foundProduct,updaterProduct);
+				updateImages(foundProduct, updaterProduct);
 			}
-			if (updaterProduct.getParentProduct() != null) {
-				foundProduct.setParentProduct(updaterProduct.getParentProduct());
+			if (updaterProduct.getParent() != null) {
+				foundProduct.setParent(updaterProduct.getParent());
 			}
 			return saveProduct(foundProduct);
 		}
@@ -174,7 +173,7 @@ public class ProductService {
 
 	private void updateImages(Product foundProduct, Product productToUpdate) {
 		foundProduct.removeAllImages();
-		for (Image img: productToUpdate.getImages()) {
+		for (Image img : productToUpdate.getImages()) {
 			foundProduct.addImages(img);
 		}
 	}

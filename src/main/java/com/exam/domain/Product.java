@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -28,6 +30,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NamedEntityGraph(name = "Product.detail", attributeNodes = { @NamedAttributeNode("parent"),
+		@NamedAttributeNode("images") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product implements Serializable {
 
@@ -101,12 +105,12 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-	public Product getParentProduct() {
+	public Product getParent() {
 		return parent;
 	}
 
-	public void setParentProduct(Product parentProduct) {
-		this.parent = parentProduct;
+	public void setParent(Product parent) {
+		this.parent = parent;
 	}
 
 	public Set<Image> getImages() {

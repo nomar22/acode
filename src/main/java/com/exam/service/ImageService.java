@@ -1,5 +1,6 @@
 package com.exam.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -34,8 +35,18 @@ public class ImageService {
 	 * @param id
 	 * @return
 	 */
-	public Image getImage(Integer id) {
+	public Image findById(Integer id) {
 		return imageRepository.findOne(id);
+	}
+
+	/**
+	 * Method tofind all images
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<Image> findAll() {
+		return (List<Image>) imageRepository.findAll();
 	}
 
 	/**
@@ -45,7 +56,7 @@ public class ImageService {
 	 * @return
 	 */
 	public Set<Image> getAllProductImages(Integer id) {
-		return imageRepository.findByParentProductId(id);
+		return imageRepository.findByProductId(id);
 	}
 
 	/**
@@ -74,7 +85,7 @@ public class ImageService {
 	 */
 	// TODO an update copying properties
 	public Image updateImage(Integer id, Image imageToUpdate) {
-		Image foundImage = getImage(id);
+		Image foundImage = findById(id);
 		if (foundImage != null) {
 			if (imageToUpdate.getProduct() != null) {
 				foundImage.setProduct(imageToUpdate.getProduct());

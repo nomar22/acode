@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.exam.assembler.ProductAssembler;
 import com.exam.domain.Product;
 import com.exam.dto.Message;
 import com.exam.service.ProductService;
@@ -39,6 +40,9 @@ public class ProductsApi {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private ProductAssembler productAssembler;
 
 	/**
 	 * Method to manage GET request to get a specific Product with all its specified
@@ -61,7 +65,7 @@ public class ProductsApi {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(product).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(productAssembler.toResource(product)).build();
 
 	}
 
@@ -86,7 +90,7 @@ public class ProductsApi {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(product).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(productAssembler.toResource(product)).build();
 
 	}
 
@@ -105,7 +109,7 @@ public class ProductsApi {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(products).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(products).build();
 	}
 
 	/**
@@ -124,7 +128,7 @@ public class ProductsApi {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(products).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(productAssembler.toResources(products)).build();
 	}
 
 	/**
@@ -145,7 +149,7 @@ public class ProductsApi {
 
 		Set<Product> products = productService.getAllProductChild(Integer.valueOf(id));
 
-		return Response.status(Response.Status.OK).entity(products).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.ok(productAssembler.toResources(products)).build();
 	}
 
 	/**
@@ -164,7 +168,8 @@ public class ProductsApi {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(productToSave).type(MediaType.APPLICATION_JSON_VALUE).build();
+		return Response.status(Response.Status.OK).entity(productAssembler.toResource(productToSave))
+				.type(MediaType.APPLICATION_JSON_VALUE).build();
 	}
 
 	/**
@@ -189,8 +194,7 @@ public class ProductsApi {
 			return Response.status(Response.Status.NOT_FOUND).entity(Message.NOT_FOUND.getDescription()).build();
 		}
 
-		return Response.status(Response.Status.OK).entity(productToUpdate).type(MediaType.APPLICATION_JSON_VALUE)
-				.build();
+		return Response.ok(productAssembler.toResource(productToUpdate)).build();
 	}
 
 	/**
@@ -208,8 +212,7 @@ public class ProductsApi {
 
 		try {
 			productService.deleteProduct(Integer.parseInt(id));
-			return Response.status(Response.Status.OK).entity(Message.SUCCESS.getDescription())
-					.type(MediaType.APPLICATION_JSON_VALUE).build();
+			return Response.ok().build();
 		} catch (DataIntegrityViolationException ex) {
 			return Response.status(Response.Status.FORBIDDEN).entity(Message.ENTITY_INTEGRITY.getDescription()).build();
 		} catch (Exception e) {

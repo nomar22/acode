@@ -8,7 +8,7 @@ import javax.ws.rs.core.Application;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
-@ApplicationPath("/v1")
+@ApplicationPath("/")
 @SpringBootTest
 public class RestApiApplicationTests extends Application {
 	

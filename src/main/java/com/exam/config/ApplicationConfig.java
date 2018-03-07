@@ -19,7 +19,7 @@ import io.swagger.jaxrs.listing.SwaggerSerializers;
  * @author RafaelRa
  *
  */
-@ApplicationPath("/v1")
+@ApplicationPath("/")
 @Component
 public class ApplicationConfig extends ResourceConfig {
 	public ApplicationConfig() {
@@ -38,7 +38,7 @@ public class ApplicationConfig extends ResourceConfig {
 		conf.setDescription("Product and Image Relationship");
 		conf.setVersion("1.0.0");
 		conf.setHost("localhost:8080");
-		conf.setBasePath("/v1");
+		conf.setBasePath("/");
 		conf.setSchemes(new String[] { "http" });
 		conf.setResourcePackage("com.exam.api");
 		conf.setScan(true);

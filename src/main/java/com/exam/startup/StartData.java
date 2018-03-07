@@ -1,11 +1,9 @@
 package com.exam.startup;
 
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.exam.assembler.ProductMapper;
 import com.exam.domain.Image;
 import com.exam.domain.Product;
 import com.exam.service.ProductService;
@@ -37,7 +35,7 @@ public class StartData implements InitializingBean {
 
 		Product p2 = new Product();
 		p2.setName("House");
-		p2.setParentProduct(p1);
+		p2.setParent(p1);
 
 		p2 = productService.saveProduct(p2);
 
@@ -45,7 +43,6 @@ public class StartData implements InitializingBean {
 
 		p2 = productService.saveProduct(p2);
 
-		p1.setParentProduct(p2);
 
 		p1 = productService.saveProduct(p1);
 	}
