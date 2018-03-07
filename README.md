@@ -19,8 +19,8 @@ Once started you can check the service on : `http://localhost:8080/v1/products` 
 
 The port number can be changed by editing the port property on `src/main/resources/application.properties`
 
-## Test application
-Navigate to the directory and execute : mvn test
+### Test application
+Navigate to the directory and execute :<b> mvn test</b>
 
 ## API documentation
 Once started the application the API documentation is locatted at the main page of project on `http://localhost:8080`
